@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bocom.dao.AppJudgeDao">
+	<resultMap id="BaseResultMap" type="com.bocom.domain.AppJudge">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="app_id" property="appId" jdbcType="VARCHAR" />
+		<result column="app_version" property="appVersion" jdbcType="VARCHAR" />
+		<result column="app_name" property="appName" jdbcType="VARCHAR" />
+		<result column="create_By" property="createBy" jdbcType="VARCHAR" />
+		<result column="create_byName" property="createByname"
+			jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="app_score" property="appScore" jdbcType="INTEGER" />
+		<result column="app_judge" property="appJudge" jdbcType="VARCHAR" />
+		<result column="app_judge_add" property="appJudgeAdd" jdbcType="VARCHAR" />
+		<result column="app_score_add" property="appScoreAdd" jdbcType="INTEGER" />
+		<result column="judge_add_time" property="judgeAddTime"
+			jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="is_public" property="isPublic" jdbcType="VARCHAR" />
+		<result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="BaseResultMapAdd" type="com.bocom.domain.AppJudge">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="app_id" property="appId" jdbcType="VARCHAR" />
+		<result column="app_version" property="appVersion" jdbcType="VARCHAR" />
+		<result column="app_name" property="appName" jdbcType="VARCHAR" />
+		<result column="create_By" property="createBy" jdbcType="VARCHAR" />
+		<result column="create_byName" property="createByname"
+			jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="app_score" property="appScore" jdbcType="INTEGER" />
+		<result column="app_judge" property="appJudge" jdbcType="VARCHAR" />
+		<result column="app_judge_add" property="appJudgeAdd" jdbcType="VARCHAR" />
+		<result column="app_score_add" property="appScoreAdd" jdbcType="INTEGER" />
+		<result column="judge_add_time" property="judgeAddTime"
+			jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="is_public" property="isPublic" jdbcType="VARCHAR" />
+		<result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
+		<collection property="appJudgeInfo" ofType="com.bocom.domain.AppJudgeInfo">
+		    <result column="judge_id" property="judgeId" jdbcType="VARCHAR" />
+		    <result column="judge_content" property="judgeContent" jdbcType="VARCHAR" />
+		    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		</collection>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, app_id, app_version, app_name, create_By, create_byName, create_date,
+		app_score,
+		app_judge, app_judge_add, app_score_add, judge_add_time, update_time, is_public,
+		del_flag
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_app_judge
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_app_judge
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.bocom.domain.AppJudge">
+		insert into t_app_judge (id, app_id, app_version,
+		app_name, create_By, create_byName,
+		create_date, app_score, app_judge,
+		app_judge_add, app_score_add, judge_add_time,
+		update_time, is_public, del_flag
+		)
+		values (#{id,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR},
+		#{appVersion,jdbcType=VARCHAR},
+		#{appName,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createByname,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP}, #{appScore,jdbcType=INTEGER},
+		#{appJudge,jdbcType=VARCHAR},
+		#{appJudgeAdd,jdbcType=VARCHAR}, #{appScoreAdd,jdbcType=INTEGER}, #{judgeAddTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP}, #{isPublic,jdbcType=VARCHAR},
+		#{delFlag,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.bocom.domain.AppJudge">
+		insert into t_app_judge
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="appId != null">
+				app_id,
+			</if>
+			<if test="appVersion != null">
+				app_version,
+			</if>
+			<if test="appName != null">
+				app_name,
+			</if>
+			<if test="createBy != null">
+				create_By,
+			</if>
+			<if test="createByname != null">
+				create_byName,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="appScore != null">
+				app_score,
+			</if>
+			<if test="appJudge != null">
+				app_judge,
+			</if>
+			<if test="appJudgeAdd != null">
+				app_judge_add,
+			</if>
+			<if test="appScoreAdd != null">
+				app_score_add,
+			</if>
+			<if test="judgeAddTime != null">
+				judge_add_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="isPublic != null">
+				is_public,
+			</if>
+			<if test="delFlag != null">
+				del_flag,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				#{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="appVersion != null">
+				#{appVersion,jdbcType=VARCHAR},
+			</if>
+			<if test="appName != null">
+				#{appName,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createByname != null">
+				#{createByname,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="appScore != null">
+				#{appScore,jdbcType=INTEGER},
+			</if>
+			<if test="appJudge != null">
+				#{appJudge,jdbcType=VARCHAR},
+			</if>
+			<if test="appJudgeAdd != null">
+				#{appJudgeAdd,jdbcType=VARCHAR},
+			</if>
+			<if test="appScoreAdd != null">
+				#{appScoreAdd,jdbcType=INTEGER},
+			</if>
+			<if test="judgeAddTime != null">
+				#{judgeAddTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isPublic != null">
+				#{isPublic,jdbcType=VARCHAR},
+			</if>
+			<if test="delFlag != null">
+				#{delFlag,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<!-- 追加评论 -->
+	<update id="appendAppJudge" parameterType="com.bocom.domain.AppJudge">
+		update t_app_judge
+		<set>
+			<if test="appId != null">
+				app_id = #{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="appVersion != null">
+				app_version = #{appVersion,jdbcType=VARCHAR},
+			</if>
+			<if test="appName != null">
+				app_name = #{appName,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+				create_By = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createByname != null">
+				create_byName = #{createByname,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="appScore != null">
+				app_score = #{appScore,jdbcType=INTEGER},
+			</if>
+			<if test="appJudge != null">
+				app_judge = #{appJudge,jdbcType=VARCHAR},
+			</if>
+			<if test="appJudgeAdd != null">
+				app_judge_add = #{appJudgeAdd,jdbcType=VARCHAR},
+			</if>
+			<if test="appScoreAdd != null">
+				app_score_add = #{appScoreAdd,jdbcType=INTEGER},
+			</if>
+			<if test="judgeAddTime != null">
+				judge_add_time = #{judgeAddTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isPublic != null  and isPublic != ''">
+				is_public = #{isPublic,jdbcType=VARCHAR},
+			</if>
+			<if test="delFlag != null">
+				del_flag = #{delFlag,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bocom.domain.AppJudge">
+		update t_app_judge
+		set app_id = #{appId,jdbcType=VARCHAR},
+		app_version = #{appVersion,jdbcType=VARCHAR},
+		app_name = #{appName,jdbcType=VARCHAR},
+		create_By = #{createBy,jdbcType=VARCHAR},
+		create_byName = #{createByname,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		app_score = #{appScore,jdbcType=INTEGER},
+		app_judge = #{appJudge,jdbcType=VARCHAR},
+		app_judge_add = #{appJudgeAdd,jdbcType=VARCHAR},
+		app_score_add = #{appScoreAdd,jdbcType=INTEGER},
+		judge_add_time = #{judgeAddTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		is_public = #{isPublic,jdbcType=VARCHAR},
+		del_flag = #{delFlag,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="queryAppScoreAdd" resultType="java.lang.String"
+		parameterType="com.bocom.domain.AppJudge">
+		select
+		app_score_add
+		from t_app_judge
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<!-- 获取评价信息 -->
+	<select id="selectJudgeInfo" resultMap="BaseResultMap"
+		parameterType="Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_app_judge
+		where 1=1
+		<if test="appId != null">
+			and app_id = #{appId,jdbcType=VARCHAR}
+		</if>
+		<if test="appVersion != null">
+			and app_version = #{appVersion,jdbcType=VARCHAR}
+		</if>
+		<if test="createBy != null">
+			and create_By = #{createBy,jdbcType=VARCHAR}
+		</if>
+		<if test="isPublic != null">
+			and is_public = #{isPublic,jdbcType=VARCHAR}
+		</if>
+		and del_flag="0"
+		order by create_date desc
+	</select>
+	<!-- 获取应用评价平均分  (ROUND(avg(app_score))+ROUND(avg(app_score_add)))/2 as app_score-->
+	<select id="selectJudgeScore" resultMap="BaseResultMap"
+		parameterType="Map">
+		select app_id,app_version,  ROUND(avg(app_score)) as app_score
+		from t_app_judge
+		where 1=1
+		<if test="appId != null">
+			and app_id = #{appId,jdbcType=VARCHAR}
+		</if>
+		<if test="appVersion != null">
+			and app_version = #{appVersion,jdbcType=VARCHAR}
+		</if>
+		and del_flag="0"
+		GROUP BY app_id ORDER BY avg(app_score) DESC
+	</select>
+	
+	<!-- 获取评价信息 -->
+	<select id="selectJudgeInfoAll" resultMap="BaseResultMapAdd"
+		parameterType="Map">
+		SELECT aj.id,aj.app_score,aj.app_id,aj.app_name,aj.app_version,aj.create_By,aj.create_byName,aj.create_date,aj.is_public,aji.judge_content,aji.create_time 
+		from t_app_judge aj LEFT JOIN t_app_judge_info aji ON aji.judge_id=aj.id 
+		where 1=1
+		<if test="appId != null">
+			and app_id = #{appId,jdbcType=VARCHAR}
+		</if>
+		<if test="appVersion != null">
+			and app_version = #{appVersion,jdbcType=VARCHAR}
+		</if>
+		<if test="createBy != null">
+			and create_By = #{createBy,jdbcType=VARCHAR}
+		</if>
+		<if test="isPublic != null">
+			and is_public = #{isPublic,jdbcType=VARCHAR}
+		</if>
+		and del_flag="0"
+		order by aj.create_date desc,aji.create_time DESC
+	</select>
+</mapper>

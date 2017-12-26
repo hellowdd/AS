@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bocom.dao.FavoriteDao">
+	<resultMap id="BaseResultMap" type="com.bocom.domain.Favorite">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="favorite_id" property="favoriteId" jdbcType="VARCHAR" />
+		<result column="app_id" property="appId" jdbcType="VARCHAR" />
+		<result column="app_name" property="appName" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="create_byName" property="createByname"
+			jdbcType="VARCHAR" />
+		<result column="create_by" property="createBy" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+		<result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="del_flag" property="delFlag" jdbcType="CHAR" />
+		<result column="app_version" property="appVersion" jdbcType="VARCHAR" />
+		<result column="logo_web" property="logoWeb" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="BaseResultMap1" type="com.bocom.dto.FavoriteDto">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="favorite_id" property="favoriteId" jdbcType="VARCHAR" />
+		<result column="app_id" property="appId" jdbcType="VARCHAR" />
+		<result column="app_name" property="appName" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="create_byName" property="createByname"
+			jdbcType="VARCHAR" />
+		<result column="create_by" property="createBy" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+		<result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="del_flag" property="delFlag" jdbcType="CHAR" />
+		<result column="click_rate" property="clickRate" jdbcType="DECIMAL" />
+		<result column="app_version" property="appVersion" jdbcType="VARCHAR" />
+		<result column="logo_web" property="logoWeb" jdbcType="VARCHAR" />
+		<result column="status_id" property="statusId" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, favorite_id, app_id, app_name, remark, create_byName,
+		create_by,
+		create_date,
+		update_by, update_date,
+		del_flag,app_version,logo_web
+	</sql>
+	<sql id="Base_Column_List1">
+		c.status_id,a.id, a.favorite_id, a.app_id, a.app_name, a.remark,
+		a.create_byName,
+		a.create_by,
+		a.create_date,
+		a.update_by, a.update_date,
+		a.del_flag,b.click_rate,a.app_version,a.logo_web
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_favorite
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		t_favorite
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.bocom.domain.Favorite">
+		insert into t_favorite (id,
+		favorite_id, app_id,
+		app_name, remark, create_byName,
+		create_by,
+		create_date, update_by,
+		update_date, del_flag)
+		values
+		(#{id,jdbcType=VARCHAR}, #{favoriteId,jdbcType=VARCHAR},
+		#{appId,jdbcType=VARCHAR},
+		#{appName,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}, #{createByname,jdbcType=VARCHAR},
+		#{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP},
+		#{updateBy,jdbcType=VARCHAR},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{delFlag,jdbcType=CHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.bocom.domain.Favorite">
+		insert into t_favorite
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="favoriteId != null">
+				favorite_id,
+			</if>
+			<if test="appId != null">
+				app_id,
+			</if>
+			<if test="appName != null">
+				app_name,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="createByname != null">
+				create_byName,
+			</if>
+			<if test="createBy != null">
+				create_by,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="updateBy != null">
+				update_by,
+			</if>
+			<if test="updateDate != null">
+				update_date,
+			</if>
+			<if test="delFlag != null">
+				del_flag,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="favoriteId != null">
+				#{favoriteId,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				#{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="appName != null">
+				#{appName,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="createByname != null">
+				#{createByname,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+				#{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="delFlag != null">
+				#{delFlag,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bocom.domain.Favorite">
+		update t_favorite
+		<set>
+			<if test="favoriteId != null">
+				favorite_id = #{favoriteId,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				app_id = #{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="appName != null">
+				app_name = #{appName,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="createByname != null">
+				create_byName = #{createByname,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+				create_by = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+				update_by = #{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				update_date = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="delFlag != null">
+				del_flag = #{delFlag,jdbcType=CHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bocom.domain.Favorite">
+		update t_favorite
+		set favorite_id = #{favoriteId,jdbcType=VARCHAR},
+		app_id =
+		#{appId,jdbcType=VARCHAR},
+		app_name = #{appName,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR},
+		create_byName =
+		#{createByname,jdbcType=VARCHAR},
+		create_by =
+		#{createBy,jdbcType=VARCHAR},
+		create_date =
+		#{createDate,jdbcType=TIMESTAMP},
+		update_by =
+		#{updateBy,jdbcType=VARCHAR},
+		update_date =
+		#{updateDate,jdbcType=TIMESTAMP},
+		del_flag = #{delFlag,jdbcType=CHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 查询一个用户名下的收藏的列表 -->
+	<select id="queryFavoriteList" resultMap="BaseResultMap1"
+		parameterType="Map">
+		select
+		<include refid="Base_Column_List1" />
+		from t_favorite a left join t_click_rate b on a.app_id=b.app_id
+		LEFT JOIN (select a.* 
+ from t_status a 
+ where not exists(select 1 
+     from t_status b where b.app_id=a.app_id and b.create_by=a.create_by and b.create_date>a.create_date)  and a.create_by=#{userId}  and a.del_flag='0') c on c.app_id=a.app_id and c.create_by=a.create_by 
+		where
+		1=1
+		<if test="userId!=null">
+			and a.create_by=#{userId}
+		</if>
+		and a.del_flag="0"
+		order by b.click_rate desc
+	</select>
+	
+	<select id="queryMyFavoriteSize" resultType="java.lang.Integer" parameterType="com.bocom.domain.Favorite">
+	select count(*) from t_favorite
+	where 1=1 and del_flag=0
+	<if test="appId!=null">
+		and app_id=#{appId}
+	</if>
+	<!-- <if test="appVersion!=null">
+		and app_version=#{appVersion}
+	</if> -->
+	<if test="createBy!=null">
+		and create_by=#{createBy}
+	</if>
+	</select>
+
+	<!-- 逻辑删除我的应用 -->
+	<update id="delFavorite" parameterType="java.lang.String">
+		update t_favorite
+		set
+		del_flag="1"
+		where id=#{id} and del_flag="0"
+	</update>
+
+	<insert id="insertFavorite" parameterType="com.bocom.domain.Favorite">
+		insert into t_favorite
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="favoriteId != null">
+				favorite_id,
+			</if>
+			<if test="appId != null">
+				app_id,
+			</if>
+			<if test="appName != null">
+				app_name,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="createByname != null">
+				create_byName,
+			</if>
+			<if test="createBy != null">
+				create_by,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="updateBy != null">
+				update_by,
+			</if>
+			<if test="updateDate != null">
+				update_date,
+			</if>
+			<if test="delFlag != null">
+				del_flag,
+			</if>
+			<if test="appVersion != null">
+				app_version,
+			</if>
+			<if test="logoWeb != null">
+				logo_web,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="favoriteId != null">
+				#{favoriteId,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				#{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="appName != null">
+				#{appName,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="createByname != null">
+				#{createByname,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+				#{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="delFlag != null">
+				#{delFlag,jdbcType=CHAR},
+			</if>
+			<if test="appVersion != null">
+				#{appVersion,jdbcType=CHAR},
+			</if>
+			<if test="logoWeb != null">
+				#{logoWeb,jdbcType=CHAR},
+			</if>
+		</trim>
+
+	</insert>
+
+</mapper>

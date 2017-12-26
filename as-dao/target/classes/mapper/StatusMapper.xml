@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bocom.dao.StatusDao">
+	<resultMap id="BaseResultMap" type="com.bocom.domain.Status">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="status_id" property="statusId" jdbcType="VARCHAR" />
+		<result column="app_id" property="appId" jdbcType="VARCHAR" />
+		<result column="app_name" property="appName" jdbcType="VARCHAR" />
+		<result column="app_version" property="appVersion" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="role_ids" property="roleIds" jdbcType="VARCHAR" />
+		<result column="status_remark" property="statusRemark"
+			jdbcType="VARCHAR" />
+		<result column="create_byName" property="createByname"
+			jdbcType="VARCHAR" />
+		<result column="create_by" property="createBy" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+		<result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="del_flag" property="delFlag" jdbcType="CHAR" />
+	</resultMap>
+
+	<resultMap id="BaseResultMap1" type="com.bocom.dto.StatusDto">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="status_id" property="statusId" jdbcType="VARCHAR" />
+		<result column="app_id" property="appId" jdbcType="VARCHAR" />
+		<result column="app_name" property="appName" jdbcType="VARCHAR" />
+		<result column="app_version" property="appVersion" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="role_ids" property="roleIds" jdbcType="VARCHAR" />
+		<result column="status_remark" property="statusRemark"
+			jdbcType="VARCHAR" />
+		<result column="create_byName" property="createByname"
+			jdbcType="VARCHAR" />
+		<result column="create_by" property="createBy" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+		<result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="del_flag" property="delFlag" jdbcType="CHAR" />
+		<result column="statusName" property="statusName" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, status_id, app_id,app_version,app_name, remark,
+		role_ids, status_remark,
+		create_byName,
+		create_by, create_date,
+		update_by, update_date, del_flag
+	</sql>
+
+	<sql id="Base_Column_List1">
+		a.id, a.status_id, a.app_id,a.app_version, a.app_name,
+		a.remark, a.role_ids,
+		a.status_remark, a.create_byName,
+		a.create_by,
+		a.create_date, a.update_by, a.update_date, a.del_flag,b.status_name
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_status
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		t_status
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.bocom.domain.Status">
+		insert into t_status (id,
+		status_id, app_id,
+		app_name, remark, role_ids,
+		status_remark,
+		create_byName, create_by,
+		create_date, update_by, update_date,
+		del_flag)
+		values (#{id,jdbcType=VARCHAR}, #{statusId,jdbcType=VARCHAR},
+		#{appId,jdbcType=VARCHAR},
+		#{appName,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}, #{roleIds,jdbcType=VARCHAR},
+		#{statusRemark,jdbcType=VARCHAR}, #{createByname,jdbcType=VARCHAR},
+		#{createBy,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP},
+		#{delFlag,jdbcType=CHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.bocom.domain.Status">
+		insert into t_status
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="statusId != null">
+				status_id,
+			</if>
+			<if test="appId != null">
+				app_id,
+			</if>
+			<if test="appName != null">
+				app_name,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="roleIds != null">
+				role_ids,
+			</if>
+			<if test="statusRemark != null">
+				status_remark,
+			</if>
+			<if test="createByname != null">
+				create_byName,
+			</if>
+			<if test="createBy != null">
+				create_by,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="updateBy != null">
+				update_by,
+			</if>
+			<if test="updateDate != null">
+				update_date,
+			</if>
+			<if test="delFlag != null">
+				del_flag,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="statusId != null">
+				#{statusId,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				#{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="appName != null">
+				#{appName,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="roleIds != null">
+				#{roleIds,jdbcType=VARCHAR},
+			</if>
+			<if test="statusRemark != null">
+				#{statusRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="createByname != null">
+				#{createByname,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+				#{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="delFlag != null">
+				#{delFlag,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bocom.domain.Status">
+		update t_status
+		<set>
+			<if test="statusId != null">
+				status_id = #{statusId,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				app_id = #{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="appName != null">
+				app_name = #{appName,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="roleIds != null">
+				role_ids = #{roleIds,jdbcType=VARCHAR},
+			</if>
+			<if test="statusRemark != null">
+				status_remark = #{statusRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="createByname != null">
+				create_byName = #{createByname,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+				create_by = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+				update_by = #{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				update_date = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="delFlag != null">
+				del_flag = #{delFlag,jdbcType=CHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bocom.domain.Status">
+		update t_status
+		set status_id = #{statusId,jdbcType=VARCHAR},
+		app_id =
+		#{appId,jdbcType=VARCHAR},
+		app_name = #{appName,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR},
+		role_ids =
+		#{roleIds,jdbcType=VARCHAR},
+		status_remark =
+		#{statusRemark,jdbcType=VARCHAR},
+		create_byName =
+		#{createByname,jdbcType=VARCHAR},
+		create_by =
+		#{createBy,jdbcType=VARCHAR},
+		create_date =
+		#{createDate,jdbcType=TIMESTAMP},
+		update_by =
+		#{updateBy,jdbcType=VARCHAR},
+		update_date =
+		#{updateDate,jdbcType=TIMESTAMP},
+		del_flag = #{delFlag,jdbcType=CHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<!-- 查询申请列表 -->
+	<select id="queryApplyList" resultMap="BaseResultMap1"
+		parameterType="Map">
+		select
+		<include refid="Base_Column_List1" />
+		from t_status a left join t_status_conf b on a.status_id=b.id
+		where 1=1
+		<if test="userId!=null">
+			and a.create_by= #{userId,jdbcType=VARCHAR}
+		</if>
+		<if test="statusCode!=null">
+			and b.status_code= #{statusCode,jdbcType=VARCHAR}
+		</if>
+		and a.del_flag="0"
+		order by a.create_date desc
+	</select>
+
+	<select id="queryMyApplyCount" resultType="java.lang.Integer"
+		parameterType="com.bocom.domain.Status">
+		select count(*) from t_status where 1=1 and del_flag="0" and status_id ="0"
+		<if test="appId!=null">
+			and app_id=#{appId}
+		</if>
+		<!-- <if test="appVersion!=null">
+			and app_version=#{appVersion}
+		</if> -->
+		<if test="createBy!=null">
+			and create_by=#{createBy}
+		</if>
+	</select>
+
+
+	<!-- 逻辑删除数据 -->
+	<update id="delApply" parameterType="java.lang.String">
+		update t_status
+		set
+		del_flag="1"
+		where id = #{id,jdbcType=VARCHAR} and del_flag="0"
+	</update>
+
+	<!-- 审批流转接口 -->
+	<update id="auditApply" parameterType="Map">
+		update t_status
+		<set>
+			<if test="statusId != null">
+				status_id = #{statusId,jdbcType=VARCHAR},
+			</if>
+			<if test="statusRemark != null">
+				status_remark = #{statusRemark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR} and
+		del_flag="0"
+	</update>
+
+	<!-- 插入数据 -->
+	<insert id="insertApply" parameterType="com.bocom.domain.Status">
+		insert into t_status
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="statusId != null">
+				status_id,
+			</if>
+			<if test="appId != null">
+				app_id,
+			</if>
+			<if test="appName != null">
+				app_name,
+			</if>
+			<if test="appVersion != null">
+				app_version,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="roleIds != null">
+				role_ids,
+			</if>
+			<if test="statusRemark != null">
+				status_remark,
+			</if>
+			<if test="createByname != null">
+				create_byName,
+			</if>
+			<if test="createBy != null">
+				create_by,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="updateBy != null">
+				update_by,
+			</if>
+			<if test="updateDate != null">
+				update_date,
+			</if>
+			<if test="delFlag != null">
+				del_flag,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="statusId != null">
+				#{statusId,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				#{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="appName != null">
+				#{appName,jdbcType=VARCHAR},
+			</if>
+			<if test="appVersion != null">
+				#{appVersion,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="roleIds != null">
+				#{roleIds,jdbcType=VARCHAR},
+			</if>
+			<if test="statusRemark != null">
+				#{statusRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="createByname != null">
+				#{createByname,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+				#{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="delFlag != null">
+				#{delFlag,jdbcType=CHAR},
+			</if>
+		</trim>
+
+	</insert>
+
+</mapper>

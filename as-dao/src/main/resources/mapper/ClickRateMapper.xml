@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bocom.dao.ClickRateDao">
+	<resultMap id="BaseResultMap" type="com.bocom.domain.ClickRate">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="app_id" property="appId" jdbcType="VARCHAR" />
+		<result column="version_code" property="versionCode" jdbcType="VARCHAR" />
+		<result column="click_rate" property="clickRate" jdbcType="DECIMAL" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, app_id, version_code, click_rate
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_click_rate
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		t_click_rate
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.bocom.domain.ClickRate">
+		insert into t_click_rate (id,
+		app_id, version_code,
+		click_rate)
+		values (#{id,jdbcType=VARCHAR},
+		#{appId,jdbcType=VARCHAR},
+		#{versionCode,jdbcType=VARCHAR},
+		#{clickRate,jdbcType=DECIMAL})
+	</insert>
+	<insert id="insertSelective" parameterType="com.bocom.domain.ClickRate">
+		insert into t_click_rate
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="appId != null">
+				app_id,
+			</if>
+			<if test="versionCode != null">
+				version_code,
+			</if>
+			<if test="clickRate != null">
+				click_rate,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="appId != null">
+				#{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="versionCode != null">
+				#{versionCode,jdbcType=VARCHAR},
+			</if>
+			<if test="clickRate != null">
+				#{clickRate,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bocom.domain.ClickRate">
+		update t_click_rate
+		<set>
+			<if test="appId != null">
+				app_id = #{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="versionCode != null">
+				version_code = #{versionCode,jdbcType=VARCHAR},
+			</if>
+			<if test="clickRate != null">
+				click_rate = #{clickRate,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bocom.domain.ClickRate">
+		update
+		t_click_rate
+		set app_id = #{appId,jdbcType=VARCHAR},
+		version_code =
+		#{versionCode,jdbcType=VARCHAR},
+		click_rate =
+		#{clickRate,jdbcType=DECIMAL}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<update id="upClickRate" parameterType="com.bocom.domain.ClickRate">
+		update t_click_rate
+		set click_rate=click_rate+1
+		where 1=1
+		<if test="appId!=null">
+			and app_id=#{appId}
+		</if>
+		<if test="versionCode!=null">
+			and version_code=#{versionCode}
+		</if>
+	</update>
+
+	<select id="queryClickRateSize" resultType="java.lang.Integer"
+		parameterType="com.bocom.domain.ClickRate">
+		select count(*) from t_click_rate where 1=1
+		<if test="appId!=null">
+			and app_id=#{appId}
+		</if>
+		<!-- <if test="versionCode!=null">
+			and version_code=#{versionCode}
+		</if> -->
+	</select>
+	
+	<select id="queryByAppid" resultType="com.bocom.domain.ClickRate"
+		parameterType="java.util.Map">
+		select
+		id, app_id as appId, version_code as versionCode, click_rate as clickRate
+		from t_click_rate
+		<where>
+			<trim suffixOverrides="and">
+				<if test="id != null">
+					id=#{id,jdbcType=VARCHAR} and
+				</if>
+				<if test="app_id != null">
+					app_id=#{app_id,jdbcType=VARCHAR} and
+				</if>
+				<if test="version_code != null">
+					version_code=#{version_code,jdbcType=VARCHAR} and
+				</if>
+				<if test="click_rate != null">
+					click_rate=#{click_rate,jdbcType=VARCHAR} and
+				</if>
+				<if test="appids != null">
+					app_id in
+					<foreach collection="appids" index="index" item="item"
+						open="(" close=")" separator=",">
+						#{item}
+					</foreach>
+					and
+				</if>
+			</trim>
+		</where>
+		order by click_rate desc
+	</select>
+</mapper>
